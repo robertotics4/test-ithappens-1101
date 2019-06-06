@@ -12,6 +12,7 @@
     <class>model.TipoProduto</class>
     <class>model.FormaPagamento</class>
     <class>dao.FormaPagamentoDAO</class>
+    <class>model.Categoria</class>
     <properties>
     </properties>
   </persistence-unit>

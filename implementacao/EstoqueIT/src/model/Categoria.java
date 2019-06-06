@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,14 +14,21 @@ import javax.persistence.Id;
 
 /**
  *
- * @author Roberto Oliveira
+ * @author 068943091112
  */
 @Entity
-public class TipoProduto implements Serializable {
+public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
-    private String tipoProduto;
+    private String descricao;
+    
+    public Categoria() {}
+
+    public Categoria(Long id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,14 +40,17 @@ public class TipoProduto implements Serializable {
         this.id = id;
     }
 
-    public String getTipoProduto() {
-        return tipoProduto;
+    @Column(length = 200, nullable = false)
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setTipoProduto(String tipoProduto) {
-        this.tipoProduto = tipoProduto;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
+    
+    // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTÊNCIA DO JAVA
     @Override
     public int hashCode() {
         int hash = 0;
@@ -50,10 +61,10 @@ public class TipoProduto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoProduto)) {
+        if (!(object instanceof Categoria)) {
             return false;
         }
-        TipoProduto other = (TipoProduto) object;
+        Categoria other = (Categoria) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -62,7 +73,7 @@ public class TipoProduto implements Serializable {
 
     @Override
     public String toString() {
-        return "model.TipoProduto[ id=" + id + " ]";
+        return "model.Categoria[ id=" + id + " ]";
     }
-    
+
 }

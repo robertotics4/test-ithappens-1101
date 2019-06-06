@@ -6,10 +6,12 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -21,9 +23,9 @@ public class Produto implements Serializable {
     private Long id;
     private String codigoBarras;
     private String descricao;
-    private TipoProduto tipoProduto;
-    private double preco;
-    private int qtdEmEstoque;
+    private Categoria categoria;
+    private double precoCusto;
+    private double precoVenda;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,6 +37,7 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
+    @Column(length = 50, nullable = false)
     public String getCodigoBarras() {
         return codigoBarras;
     }
@@ -43,6 +46,7 @@ public class Produto implements Serializable {
         this.codigoBarras = codigoBarras;
     }
 
+    @Column(length = 200, nullable = false)
     public String getDescricao() {
         return descricao;
     }
@@ -51,28 +55,32 @@ public class Produto implements Serializable {
         this.descricao = descricao;
     }
 
-    public TipoProduto getTipoProduto() {
-        return tipoProduto;
+    @OneToOne
+    @Column(nullable = false)
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setTipoProduto(TipoProduto tipoProduto) {
-        this.tipoProduto = tipoProduto;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
-    public double getPreco() {
-        return preco;
+    @Column(nullable = false)
+    public double getPrecoCusto() {
+        return precoCusto;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public void setPrecoCusto(double precoCusto) {
+        this.precoCusto = precoCusto;
     }
 
-    public int getQtdEmEstoque() {
-        return qtdEmEstoque;
+    @Column(length = 200, nullable = false)
+    public double getPrecoVenda() {
+        return precoVenda;
     }
 
-    public void setQtdEmEstoque(int qtdEmEstoque) {
-        this.qtdEmEstoque = qtdEmEstoque;
+    public void setPrecoVenda(double precoVenda) {
+        this.precoVenda = precoVenda;
     }
  
     @Override

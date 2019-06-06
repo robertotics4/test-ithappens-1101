@@ -14,7 +14,7 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Endereco {
-
+    
     private String endereco;
     private String bairro;
     private String cidade;

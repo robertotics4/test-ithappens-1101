@@ -6,10 +6,14 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -18,7 +22,7 @@ import javax.persistence.Id;
 @Entity
 public class ItensPedido implements Serializable {
 
-    private enum StatusItem {
+    public enum StatusItem {
         ATIVO, CANCELADO, PROCESSADO
     }
 
@@ -30,6 +34,11 @@ public class ItensPedido implements Serializable {
     private double valorUnitario;
     private double valorTotal;
 
+    public ItensPedido() {
+        statusItem = StatusItem.ATIVO;
+        quantidade = 0;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -40,6 +49,54 @@ public class ItensPedido implements Serializable {
         this.id = id;
     }
 
+    @ManyToOne
+    @Column(nullable = true)
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    @Enumerated
+    @Column(nullable = false)
+    public StatusItem getStatusItem() {
+        return statusItem;
+    }
+
+    public void setStatusItem(StatusItem statusItem) {
+        this.statusItem = statusItem;
+    }
+
+    @Column(nullable = false)
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    @Column(nullable = false)
+    public double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    @Transient
+    public double getValorTotal() {
+        return quantidade * valorUnitario;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTêNCIA DO JAVA
     @Override
     public int hashCode() {
         int hash = 0;

@@ -48,6 +48,8 @@ public class FormaPagamento implements Serializable {
         this.descricao = descricao.toUpperCase();
     }
 
+    
+    // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTÊNCIA DO JAVA
     @Override
     public int hashCode() {
         int hash = 0;

@@ -7,11 +7,11 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -24,7 +24,7 @@ public class Filial implements Serializable {
     private Long id;
     private Estoque estoque;
     private String nome;
-    private Endereco endereco;
+    private String cpnj;
     private String telefone;
 
     @Id
@@ -37,7 +37,7 @@ public class Filial implements Serializable {
         this.id = id;
     }
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 200, nullable = false)
     public String getNome() {
         return nome;
     }
@@ -46,14 +46,23 @@ public class Filial implements Serializable {
         this.nome = nome;
     }
 
-    @Embedded
+    @OneToOne
     @Column(nullable = false)
-    public Endereco getEndereco() {
-        return endereco;
+    public Estoque getEstoque() {
+        return estoque;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setEstoque(Estoque estoque) {
+        this.estoque = estoque;
+    }
+
+    @Column(length = 18, nullable = false)
+    public String getCpnj() {
+        return cpnj;
+    }
+
+    public void setCpnj(String cpnj) {
+        this.cpnj = cpnj;
     }
 
     @Column(length = 20, nullable = false)
@@ -65,6 +74,8 @@ public class Filial implements Serializable {
         this.telefone = telefone;
     }
 
+    
+    // ABAIXO O CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTÊNCIA DO JAVA
     @Override
     public int hashCode() {
         int hash = 0;
