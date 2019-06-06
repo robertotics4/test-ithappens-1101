@@ -13,8 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
- * @author 068943091112
+ * Classe que representa uma entidade 'Categoria' no Banco de Dados
+ * Será gerada automaticamente uma tabela Categoria
+ * @author Roberto oliveira
  */
 @Entity
 public class Categoria implements Serializable {
@@ -23,33 +24,56 @@ public class Categoria implements Serializable {
     private Long id;
     private String descricao;
     
+    /**
+     * Construtor padrão da classe Categoria
+     */
     public Categoria() {}
 
+    /**
+     * Construtor que recebe todos os parâmetros da classe Categoria
+     * @param id
+     * @param descricao 
+     */
     public Categoria(Long id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
 
+    /**
+     * Método que retorna o id da categiria
+     * @return Long
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
+    /**
+     * Método que altera o id da categoria
+     * @param id 
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Método que retorna a descrição da categoria
+     * @return String
+     */
     @Column(length = 200, nullable = false)
     public String getDescricao() {
         return descricao;
     }
 
+    /**
+     * Método que altera a descrição
+     * @param descricao 
+     */
     public void setDescricao(String descricao) {
         this.descricao = descricao.toUpperCase();
     }
 
-    
     // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTÊNCIA DO JAVA
     @Override
     public int hashCode() {

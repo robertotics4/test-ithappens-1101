@@ -14,7 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 /**
- *
+ * Classe que representa uma entidade Filial no Banco de Dados
+ * Será gerada automaticamente uma tabela Filial
  * @author Roberto Oliveira
  */
 @Entity
@@ -27,49 +28,89 @@ public class Filial implements Serializable {
     private String cpnj;
     private String telefone;
 
+    /**
+     * Método que retorna o id da Filial
+     * @return Long
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
+    /**
+     * Método que altera o id da Filial
+     * @param id 
+     */
     public void setId(Long id) {
         this.id = id;
     }
-
+    
+    /**
+     * Método que retorna o nome da Filial
+     * @return String
+     */
     @Column(length = 200, nullable = false)
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Método que altera o nome da Filial
+     * @param nome 
+     */
     public void setNome(String nome) {
         this.nome = nome.toUpperCase();
     }
 
+    /**
+     * Método que retorna o estoque da Filial
+     * @return String
+     */
     @OneToOne
     @Column(nullable = false)
     public Estoque getEstoque() {
         return estoque;
     }
 
+    /**
+     * Método que altera o estoque da Filial
+     * @param estoque 
+     */
     public void setEstoque(Estoque estoque) {
         this.estoque = estoque;
     }
 
+    /**
+     * Método que retorna o CNPJ da Filial
+     * @return String
+     */
     @Column(length = 18, nullable = false)
     public String getCpnj() {
         return cpnj;
     }
 
+    /**
+     * Método que altera o CNPJ da Filial
+     * @param cpnj 
+     */
     public void setCpnj(String cpnj) {
         this.cpnj = cpnj;
     }
 
+    /**
+     * Método que retorna o telefone da Filial
+     * @return String
+     */
     @Column(length = 20, nullable = false)
     public String getTelefone() {
         return telefone;
     }
 
+    /**
+     * Método que altera o telefone da Filial
+     * @param telefone 
+     */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }

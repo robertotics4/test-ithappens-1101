@@ -16,7 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
- *
+ * Classe que representa uma entidade de Estoque no Banco de Dados
+ * Será gerada automaticamente uma tabela Estoque
  * @author Roberto Oliveira
  */
 @Entity
@@ -28,42 +29,72 @@ public class Estoque implements Serializable {
     private int qtdMinima;
     private double valorTotal;
 
+    /**
+     * Construtor padrão da classe Estoque
+     */
     public Estoque() {
-        // CONSTRUTOR PADRÃO COM AS CONFIGURAÇÕES INICIAIS
         produtos = new ArrayList<>();
         qtdMinima = 0;
         valorTotal = 0;
     }
 
+    /**
+     * Método que retorna o id do Estoque
+     * @return Long
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
+    /**
+     * Método que altera o id do Estoque
+     * @param id 
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Método que retorna a lista de produtos no Estoque
+     * @return List<ProdutoEstoque>
+     */
     @OneToMany
     @Column(nullable = true)
     public List<ProdutoEstoque> getProdutos() {
         return produtos;
     }
 
+    /**
+     * Método que altera a lista de produtos no Estoque
+     * @param produtos 
+     */
     public void setProdutos(List<ProdutoEstoque> produtos) {
         this.produtos = produtos;
     }
 
+    /**
+     * Método que retorna a quantidade mínima de produtos
+     * @return int
+     */
     @Column(nullable = false)
     public int getQtdMinima() {
         return qtdMinima;
     }
 
+    /**
+     * Método que altera a quantidade mínima de produtos
+     * @param qtdMinima 
+     */
     public void setQtdMinima(int qtdMinima) {
         this.qtdMinima = qtdMinima;
     }
 
+    /**
+     * Método que retorna o Valor total dos produtos
+     * @return double
+     */
     @Column(nullable = false)
     public double getValorTotal() {
         produtos.stream().forEach(p -> {
@@ -73,6 +104,10 @@ public class Estoque implements Serializable {
         return valorTotal;
     }
 
+    /**
+     * Método que altera o valor total dos produtos
+     * @param valorTotal 
+     */
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
