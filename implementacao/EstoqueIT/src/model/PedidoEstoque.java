@@ -33,6 +33,7 @@ public class PedidoEstoque implements Serializable {
     private Usuario usuario;
     private Cliente cliente;
     private String observacao;
+    private ItensPedido itensPedido;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

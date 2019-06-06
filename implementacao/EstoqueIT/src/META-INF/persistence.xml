@@ -10,6 +10,8 @@
     <class>model.Produto</class>
     <class>model.Filial</class>
     <class>model.TipoProduto</class>
+    <class>model.FormaPagamento</class>
+    <class>dao.FormaPagamentoDAO</class>
     <properties>
     </properties>
   </persistence-unit>

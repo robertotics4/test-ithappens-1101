@@ -22,6 +22,7 @@ public class Filial implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
+    private Estoque estoque;
     private String nome;
     private Endereco endereco;
     private String telefone;

@@ -10,20 +10,20 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import model.Cliente;
+import model.FormaPagamento;
 
 /**
  *
  * @author Roberto Oliveira
  */
-public class ClienteDAO {
+public class FormaPagamentoDAO {
 
-    public void persist(Cliente cliente) {
+    public void persist(FormaPagamento formaPagamento) {
         EntityManager em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
 
         try {
-            em.persist(cliente);
+            em.persist(formaPagamento);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,12 +33,12 @@ public class ClienteDAO {
         }
     }
 
-    public void update(Cliente cliente) {
+    public void update(FormaPagamento formaPagamento) {
         EntityManager em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
 
         try {
-            em.merge(cliente);
+            em.merge(formaPagamento);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,12 +48,12 @@ public class ClienteDAO {
         }
     }
 
-    public void remove(Cliente cliente) {
+    public void remove(FormaPagamento formaPagamento) {
         EntityManager em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
         try {
-            cliente = em.find(Cliente.class, cliente.getId());
-            em.remove(cliente);
+            formaPagamento = em.find(FormaPagamento.class, formaPagamento.getId());
+            em.remove(formaPagamento);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,37 +63,37 @@ public class ClienteDAO {
         }
     }
 
-    public Cliente findById(final long id) {
+    public FormaPagamento findById(final long id) {
         EntityManager em = JPAUtil.getEntityManager();
-        Cliente cliente = em.find(Cliente.class, id);
+        FormaPagamento formaPagamento = em.find(FormaPagamento.class, id);
         em.close();
-        return cliente;
+        return formaPagamento;
     }
 
-    public Cliente findByNome(String nome) {
+    public FormaPagamento findByDescricao(String descricao) {
         EntityManager em = JPAUtil.getEntityManager();
-        String jpql = "select c from Cliente c where c.nome = :nome";
-        Query query = em.createQuery(jpql, Cliente.class);
-        query.setParameter("nome", nome);
-        Cliente cliente = new Cliente();
+        String jpql = "select f from FormaPagamento f where f.descricao = :descricao";
+        Query query = em.createQuery(jpql, FormaPagamento.class);
+        query.setParameter("descricao", descricao);
+        FormaPagamento formaPagamento = new FormaPagamento();
 
         try {
-            cliente = (Cliente) query.getSingleResult();
+            formaPagamento = (FormaPagamento) query.getSingleResult();
         } catch (NoResultException e) {
             return null;
         } finally {
             em.close();
         }
 
-        return cliente;
+        return formaPagamento;
     }
 
-    public List<Cliente> getList() {
+    public List<FormaPagamento> getList() {
         EntityManager em = JPAUtil.getEntityManager();
-        List<Cliente> lista = null;
+        List<FormaPagamento> lista = null;
 
         try {
-            Query query = em.createQuery("from Cliente");
+            Query query = em.createQuery("from FormaPagamento");
             lista = query.getResultList();
         } catch (Exception e) {
             lista = null;

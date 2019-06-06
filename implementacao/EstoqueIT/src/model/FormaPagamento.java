@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,19 +17,17 @@ import javax.persistence.Id;
  * @author Roberto Oliveira
  */
 @Entity
-public class ItensPedido implements Serializable {
-
-    private enum StatusItem {
-        ATIVO, CANCELADO, PROCESSADO
-    }
+public class FormaPagamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
-    private Produto produto;
-    private StatusItem statusItem;
-    private int quantidade;
-    private double valorUnitario;
-    private double valorTotal;
+    private String descricao;
+    
+    public FormaPagamento() {}
+
+    public FormaPagamento(String descricao) {
+        this.descricao = descricao;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,6 +37,15 @@ public class ItensPedido implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Column(length = 200, nullable = false)
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao.toUpperCase();
     }
 
     @Override
@@ -50,10 +58,10 @@ public class ItensPedido implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ItensPedido)) {
+        if (!(object instanceof FormaPagamento)) {
             return false;
         }
-        ItensPedido other = (ItensPedido) object;
+        FormaPagamento other = (FormaPagamento) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -62,7 +70,7 @@ public class ItensPedido implements Serializable {
 
     @Override
     public String toString() {
-        return "model.ItensPedido[ id=" + id + " ]";
+        return "model.FormaPagamento[ id=" + id + " ]";
     }
 
 }
