@@ -43,7 +43,7 @@ public class Produto implements Serializable {
     }
 
     public void setCodigoBarras(String codigoBarras) {
-        this.codigoBarras = codigoBarras;
+        this.codigoBarras = codigoBarras.toUpperCase();
     }
 
     @Column(length = 200, nullable = false)
@@ -52,7 +52,7 @@ public class Produto implements Serializable {
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        this.descricao = descricao.toUpperCase();
     }
 
     @OneToOne

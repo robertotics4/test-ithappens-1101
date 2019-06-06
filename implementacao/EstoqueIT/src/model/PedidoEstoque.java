@@ -6,6 +6,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +15,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -33,7 +37,11 @@ public class PedidoEstoque implements Serializable {
     private Usuario usuario;
     private Cliente cliente;
     private String observacao;
-    private ItensPedido itensPedido;
+    private List<ItensPedido> itensPedido;
+
+    public PedidoEstoque() {
+        itensPedido = new ArrayList<>();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,6 +54,7 @@ public class PedidoEstoque implements Serializable {
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     public TipoPedido getTipoPedido() {
         return tipoPedido;
     }
@@ -54,6 +63,8 @@ public class PedidoEstoque implements Serializable {
         this.tipoPedido = tipoPedido;
     }
 
+    @OneToOne
+    @Column(nullable = false)
     public Filial getFilial() {
         return filial;
     }
@@ -62,6 +73,8 @@ public class PedidoEstoque implements Serializable {
         this.filial = filial;
     }
 
+    @OneToOne
+    @Column(nullable = false)
     public Usuario getUsuario() {
         return usuario;
     }
@@ -70,6 +83,8 @@ public class PedidoEstoque implements Serializable {
         this.usuario = usuario;
     }
 
+    @OneToOne
+    @Column(nullable = false)
     public Cliente getCliente() {
         return cliente;
     }
@@ -78,15 +93,26 @@ public class PedidoEstoque implements Serializable {
         this.cliente = cliente;
     }
 
-    @Column(length = 300)
+    @Column(length = 300, nullable = false)
     public String getObservacao() {
         return observacao;
     }
 
     public void setObservacao(String observacao) {
-        this.observacao = observacao;
+        this.observacao = observacao.toUpperCase();
     }
 
+    @OneToMany
+    @Column(nullable = true)
+    public List<ItensPedido> getItensPedido() {
+        return itensPedido;
+    }
+
+    public void setItensPedido(List<ItensPedido> itensPedido) {
+        this.itensPedido = itensPedido;
+    }
+
+    // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTÊNCIA DO JAVA
     @Override
     public int hashCode() {
         int hash = 0;

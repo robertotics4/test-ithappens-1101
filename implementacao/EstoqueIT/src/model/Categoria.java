@@ -46,7 +46,7 @@ public class Categoria implements Serializable {
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        this.descricao = descricao.toUpperCase();
     }
 
     
@@ -75,5 +75,4 @@ public class Categoria implements Serializable {
     public String toString() {
         return "model.Categoria[ id=" + id + " ]";
     }
-
 }
