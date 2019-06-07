@@ -16,8 +16,8 @@ public class Autenticacao {
 
     /**
      * Método responsável em validar os dados na autenticação do sistema (usuário, senha)
-     * @param nomeDigitado
-     * @param senhaDigitada
+     * @param nomeDigitado - Nome digitado na entrada
+     * @param senhaDigitada - Senha digitada na entrada
      * @return Usuario
      */
     public static Usuario authenticate(String nomeDigitado, String senhaDigitada) {

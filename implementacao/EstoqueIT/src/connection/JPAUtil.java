@@ -12,7 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- *
+ * Classe de configuraçãao da Java Persistence API
  * @author Roberto Oliveira
  */
 public class JPAUtil {
@@ -29,14 +29,27 @@ public class JPAUtil {
 
     }
 
+    /**
+     * Método que retorna um gerenciador de entidades
+     * @return EntityManager
+     */
     public static EntityManager getEntityManager() {
         return factory.createEntityManager();
     }
 
+    /**
+     * Método que finaliza a fábrica de Entity Manager
+     */
     public static void close() {
         factory.close();
     }
 
+    /**
+     * Método que retorna as propriedades da unidade de persistência
+     * @param user - usuário de conexão com o Banco de Dados
+     * @param pass - senha de conexão com o Banco de Dados
+     * @return Map
+     */
     public static Map getProprieties(String user, String pass) {
         Map pmap = new HashMap();
 
@@ -53,14 +66,26 @@ public class JPAUtil {
         return pmap;
     }
 
+    /**
+     * Método que retorna o endereço do servidor
+     * @return String
+     */
     public static String getEnderecoServidor() {
         return JPAUtil.enderecoServidor;
     }
 
+    /**
+     * Método que retorna a porta do servidor
+     * @return String
+     */
     public static String getPortaServidor() {
         return JPAUtil.portaServidor;
     }
 
+    /**
+     * Método que retorna a URL de conexão
+     * @return String
+     */
     public static String getUrl() {
         return "jdbc:mysql://" + JPAUtil.enderecoServidor + ":" + JPAUtil.portaServidor + "/estoqueit?createDatabaseIfNotExist=true";
     }

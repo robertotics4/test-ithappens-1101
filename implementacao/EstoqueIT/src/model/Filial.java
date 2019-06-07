@@ -57,7 +57,7 @@ public class Filial implements Serializable {
 
     /**
      * Método que altera o nome da Filial
-     * @param nome 
+     * @param nome - nome da filial
      */
     public void setNome(String nome) {
         this.nome = nome.toUpperCase();
@@ -74,7 +74,7 @@ public class Filial implements Serializable {
 
     /**
      * Método que altera o estoque da Filial
-     * @param estoque 
+     * @param estoque - estoque da filial
      */
     public void setEstoque(Estoque estoque) {
         this.estoque = estoque;
@@ -91,7 +91,7 @@ public class Filial implements Serializable {
 
     /**
      * Método que altera o CNPJ da Filial
-     * @param cpnj 
+     * @param cpnj - CNPJ da filial
      */
     public void setCpnj(String cpnj) {
         this.cpnj = cpnj;
@@ -108,7 +108,7 @@ public class Filial implements Serializable {
 
     /**
      * Método que altera o telefone da Filial
-     * @param telefone 
+     * @param telefone - telefone da filial
      */
     public void setTelefone(String telefone) {
         this.telefone = telefone;

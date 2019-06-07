@@ -17,7 +17,7 @@ public abstract class Criptografia {
 
     /**
      * Método para criptografar uma senha
-     * @param senha
+     * @param senha - senha a ser criptografada
      * @return String
      */
     public static String encrypt(String senha) {
@@ -27,7 +27,7 @@ public abstract class Criptografia {
 
     /**
      * Método para descriptografar uma senha
-     * @param senha
+     * @param senha - senha a ser descriptografada
      * @return String
      */
     public static String decrypt(String senha) {

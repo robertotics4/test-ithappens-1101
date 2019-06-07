@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
 
     /**
      * Método que altera o id do usuário
-     * @param id 
+     * @param id - id do usuário
      */
     public void setId(Long id) {
         this.id = id;
@@ -54,7 +54,7 @@ public class Usuario implements Serializable {
 
     /**
      * Método que altera o nome do usuário
-     * @param nome 
+     * @param nome  - nome do usuário
      */
     public void setNome(String nome) {
         this.nome = nome;
@@ -71,7 +71,7 @@ public class Usuario implements Serializable {
 
     /**
      * Método que altera a senha do usuário
-     * @param senha 
+     * @param senha - senha do usuário
      */
     public void setSenha(String senha) {
         this.senha = senha;

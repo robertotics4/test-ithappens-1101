@@ -39,7 +39,7 @@ public class Cliente implements Serializable {
 
     /**
      * Método que altera o id do cliente
-     * @param id 
+     * @param id - id do cliente
      */
     public void setId(Long id) {
         this.id = id;
@@ -56,7 +56,7 @@ public class Cliente implements Serializable {
 
     /**
      * Método que altera o nome do cliente
-     * @param nome 
+     * @param nome  - nome do cliente
      */
     public void setNome(String nome) {
         this.nome = nome.toUpperCase();
@@ -74,7 +74,7 @@ public class Cliente implements Serializable {
 
     /**
      * Método que altera o endereço do Cliente
-     * @param endereco 
+     * @param endereco - endereço do cliente
      */
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
@@ -91,7 +91,7 @@ public class Cliente implements Serializable {
 
     /**
      * Método que altera o telefone do cliente
-     * @param telefone 
+     * @param telefone - telefone do cliente
      */
     public void setTelefone(String telefone) {
         this.telefone = telefone;

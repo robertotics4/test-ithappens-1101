@@ -52,7 +52,7 @@ public class PedidoEstoque implements Serializable {
 
     /**
      * Método que retorna o id do pedido
-     * @return 
+     * @return Long
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -80,7 +80,7 @@ public class PedidoEstoque implements Serializable {
 
     /**
      * Método que altera o tipo do pedido
-     * @param tipoPedido 
+     * @param tipoPedido - tipo do pedido
      */
     public void setTipoPedido(TipoPedido tipoPedido) {
         this.tipoPedido = tipoPedido;
@@ -97,7 +97,7 @@ public class PedidoEstoque implements Serializable {
 
     /**
      * Método que altera a filial
-     * @param filial 
+     * @param filial - filial
      */
     public void setFilial(Filial filial) {
         this.filial = filial;
@@ -114,7 +114,7 @@ public class PedidoEstoque implements Serializable {
 
     /**
      * Método que altera o usuário
-     * @param usuario 
+     * @param usuario - usuário
      */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
@@ -131,7 +131,7 @@ public class PedidoEstoque implements Serializable {
 
     /**
      * Método que altera o cliente
-     * @param cliente 
+     * @param cliente - cliente
      */
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -148,7 +148,7 @@ public class PedidoEstoque implements Serializable {
 
     /**
      * Método que altera a observação
-     * @param observacao 
+     * @param observacao - observação 
      */
     public void setObservacao(String observacao) {
         this.observacao = observacao.toUpperCase();
@@ -156,7 +156,7 @@ public class PedidoEstoque implements Serializable {
 
     /**
      * Método que retorna os itens do pedido
-     * @return List<ItensPedido>
+     * @return List
      */
     @OneToMany
     @Column(nullable = true)
@@ -166,7 +166,7 @@ public class PedidoEstoque implements Serializable {
 
     /**
      * Método que altera os itens do pedido
-     * @param itensPedido 
+     * @param itensPedido - itens do pedido
      */
     public void setItensPedido(List<ItensPedido> itensPedido) {
         this.itensPedido = itensPedido;

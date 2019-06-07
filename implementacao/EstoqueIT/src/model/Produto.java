@@ -57,7 +57,7 @@ public class Produto implements Serializable {
 
     /**
      * Método que altera o código de barras do produto
-     * @param codigoBarras 
+     * @param codigoBarras - código de barras do produto
      */
     public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras.toUpperCase();
@@ -74,7 +74,7 @@ public class Produto implements Serializable {
 
     /**
      * Método que altera a descrição do produto
-     * @param descricao 
+     * @param descricao - descrição do produto
      */
     public void setDescricao(String descricao) {
         this.descricao = descricao.toUpperCase();
@@ -91,7 +91,7 @@ public class Produto implements Serializable {
 
     /**
      * Método que altera a categoria do produto
-     * @param categoria 
+     * @param categoria - categoria do produto
      */
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
@@ -108,7 +108,7 @@ public class Produto implements Serializable {
 
     /**
      * Método que altera o preço de custo do produto
-     * @param precoCusto 
+     * @param precoCusto - preço de custo do produto
      */
     public void setPrecoCusto(double precoCusto) {
         this.precoCusto = precoCusto;
@@ -125,7 +125,7 @@ public class Produto implements Serializable {
 
     /**
      * Método que altera o preço de venda do produto
-     * @param precoVenda 
+     * @param precoVenda - preço de venda do produto
      */
     public void setPrecoVenda(double precoVenda) {
         this.precoVenda = precoVenda;

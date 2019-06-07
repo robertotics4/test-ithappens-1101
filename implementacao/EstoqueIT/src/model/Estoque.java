@@ -62,7 +62,7 @@ public class Estoque implements Serializable {
     /**
      * Método que retorna a lista de produtos no estoque
      *
-     * @return List<ProdutoEstoque>
+     * @return List
      */
     @OneToMany
     public List<ProdutoEstoque> getProdutos() {
@@ -72,7 +72,7 @@ public class Estoque implements Serializable {
     /**
      * Método que altera a lista de produtos no estoque
      *
-     * @param produtos
+     * @param produtos - produtos do estoque
      */
     public void setProdutos(List<ProdutoEstoque> produtos) {
         this.produtos = produtos;
@@ -91,7 +91,7 @@ public class Estoque implements Serializable {
     /**
      * Método que altera a quantidade mínima de produtos
      *
-     * @param qtdMinima
+     * @param qtdMinima - quantidade mínima de produtos
      */
     public void setQtdMinima(int qtdMinima) {
         this.qtdMinima = qtdMinima;
@@ -114,7 +114,7 @@ public class Estoque implements Serializable {
     /**
      * Método que altera o valor total dos produtos
      *
-     * @param valorTotal
+     * @param valorTotal - valor total dos produtos
      */
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;

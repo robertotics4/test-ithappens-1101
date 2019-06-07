@@ -58,7 +58,7 @@ public class ItensPedido implements Serializable {
 
     /**
      * Método que altera o id do item do pedido
-     * @param id 
+     * @param id - id do item do pedido
      */
     public void setId(Long id) {
         this.id = id;
@@ -75,7 +75,7 @@ public class ItensPedido implements Serializable {
 
     /**
      * Método que altera o produto do item do pedido
-     * @param produto 
+     * @param produto - produto do item do pedido
      */
     public void setProduto(Produto produto) {
         this.produto = produto;
@@ -93,7 +93,7 @@ public class ItensPedido implements Serializable {
 
     /**
      * Método que altera o estado do item do pedido
-     * @param statusItem 
+     * @param statusItem - estado do item do pedido
      */
     public void setStatusItem(StatusItem statusItem) {
         this.statusItem = statusItem;
@@ -110,7 +110,7 @@ public class ItensPedido implements Serializable {
 
     /**
      * Método que altera a quantidade de itens do pedido
-     * @param quantidade 
+     * @param quantidade - quantidade de itens do pedido
      */
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
@@ -127,7 +127,7 @@ public class ItensPedido implements Serializable {
 
     /**
      * Método que altera o valor unitário do item do pedido
-     * @param valorUnitario 
+     * @param valorUnitario - valor unitário do item do pedido
      */
     public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
@@ -144,7 +144,7 @@ public class ItensPedido implements Serializable {
 
     /**
      * Método que altera o valor total do pedido
-     * @param valorTotal 
+     * @param valorTotal - valor total do pedido
      */
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;

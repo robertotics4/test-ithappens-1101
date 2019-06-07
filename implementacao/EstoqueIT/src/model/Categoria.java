@@ -34,7 +34,7 @@ public class Categoria implements Serializable {
     /**
      * Construtor que recebe todos os parâmetros da classe Categoria
      *
-     * @param descricao
+     * @param descricao - Descrição da categoria
      */
     public Categoria(String descricao) {
         this.descricao = descricao;
@@ -73,7 +73,7 @@ public class Categoria implements Serializable {
     /**
      * Método que altera a descrição
      *
-     * @param descricao
+     * @param descricao - Descrição da categoria
      */
     public void setDescricao(String descricao) {
         this.descricao = descricao.toUpperCase();

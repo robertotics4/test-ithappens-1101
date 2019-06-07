@@ -33,8 +33,8 @@ public class ProdutoEstoque implements Serializable {
     /**
      * Construtor que recebe todos os parâmetros da classe ProdutoEstoque
      *
-     * @param produto
-     * @param qtdProduto
+     * @param produto - produto
+     * @param qtdProduto - quantidade de produtos
      */
     public ProdutoEstoque(Produto produto, int qtdProduto) {
         this.produto = produto;
@@ -55,7 +55,7 @@ public class ProdutoEstoque implements Serializable {
     /**
      * Método que altera o id do produto do estoque
      *
-     * @param id
+     * @param id - id do produto no estoque
      */
     public void setId(Long id) {
         this.id = id;
@@ -73,7 +73,7 @@ public class ProdutoEstoque implements Serializable {
     /**
      * Método que retorna o produto do estoque
      *
-     * @param produto
+     * @param produto - produto no estoque
      */
     public void setProduto(Produto produto) {
         this.produto = produto;
@@ -91,7 +91,7 @@ public class ProdutoEstoque implements Serializable {
     /**
      * Método que altera a quantidade de produtos no estoque
      *
-     * @param qtdProduto
+     * @param qtdProduto - quantidade de produtos no estoque
      */
     public void setQtdProduto(int qtdProduto) {
         this.qtdProduto = qtdProduto;

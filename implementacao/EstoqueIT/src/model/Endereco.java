@@ -28,10 +28,10 @@ public class Endereco {
     
     /**
      * Construtor que recebe todos parâmetros da classe Endereço
-     * @param endereco
-     * @param bairro
-     * @param cidade
-     * @param cep 
+     * @param endereco - endereço do local
+     * @param bairro - bairro
+     * @param cidade - cidade
+     * @param cep - CEP do local
      */
     public Endereco(String endereco, String bairro, String cidade, String cep) {
         this.endereco = endereco;
@@ -51,7 +51,7 @@ public class Endereco {
 
     /**
      * Método que altera o endereço
-     * @param endereco 
+     * @param endereco - endereço
      */
     public void setEndereco(String endereco) {
         this.endereco = endereco.toUpperCase();
@@ -68,7 +68,7 @@ public class Endereco {
 
     /**
      * Método que altera o bairro
-     * @param bairro 
+     * @param bairro - bairro do endereço
      */
     public void setBairro(String bairro) {
         this.bairro = bairro.toUpperCase();
@@ -85,7 +85,7 @@ public class Endereco {
 
     /**
      * Método que altera a cidade
-     * @param cidade 
+     * @param cidade - cidade
      */
     public void setCidade(String cidade) {
         this.cidade = cidade.toUpperCase();
@@ -102,7 +102,7 @@ public class Endereco {
 
     /**
      * Método que altera a UF(Estado)
-     * @param uf 
+     * @param uf - estado (UF)
      */
     public void setUf(String uf) {
         this.uf = uf.toUpperCase();
@@ -119,7 +119,7 @@ public class Endereco {
 
     /**
      * Método que altera o CEP
-     * @param cep 
+     * @param cep - CEP do local
      */
     public void setCep(String cep) {
         this.cep = cep;
