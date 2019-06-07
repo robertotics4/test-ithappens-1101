@@ -13,8 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * Classe que representa uma entidade 'Categoria' no Banco de Dados
- * Será gerada automaticamente uma tabela Categoria
+ * Classe que representa uma entidade 'Categoria' no Banco de Dados Será gerada
+ * automaticamente uma tabela Categoria
+ *
  * @author Roberto oliveira
  */
 @Entity
@@ -23,24 +24,25 @@ public class Categoria implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
     private String descricao;
-    
+
     /**
      * Construtor padrão da classe Categoria
      */
-    public Categoria() {}
+    public Categoria() {
+    }
 
     /**
      * Construtor que recebe todos os parâmetros da classe Categoria
-     * @param id
-     * @param descricao 
+     *
+     * @param descricao
      */
-    public Categoria(Long id, String descricao) {
-        this.id = id;
+    public Categoria(String descricao) {
         this.descricao = descricao;
     }
 
     /**
      * Método que retorna o id da categiria
+     *
      * @return Long
      */
     @Id
@@ -51,14 +53,16 @@ public class Categoria implements Serializable {
 
     /**
      * Método que altera o id da categoria
-     * @param id 
+     *
+     * @param id
      */
-    public void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
     /**
      * Método que retorna a descrição da categoria
+     *
      * @return String
      */
     @Column(length = 200, nullable = false)
@@ -68,7 +72,8 @@ public class Categoria implements Serializable {
 
     /**
      * Método que altera a descrição
-     * @param descricao 
+     *
+     * @param descricao
      */
     public void setDescricao(String descricao) {
         this.descricao = descricao.toUpperCase();

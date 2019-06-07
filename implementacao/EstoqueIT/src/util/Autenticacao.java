@@ -9,11 +9,17 @@ import dao.UsuarioDAO;
 import model.Usuario;
 
 /**
- *
+ * Classe que possui os métodos de autenticação no sistema
  * @author Roberto Oliveira
  */
 public class Autenticacao {
 
+    /**
+     * Método responsável em validar os dados na autenticação do sistema (usuário, senha)
+     * @param nomeDigitado
+     * @param senhaDigitada
+     * @return Usuario
+     */
     public static Usuario authenticate(String nomeDigitado, String senhaDigitada) {
         UsuarioDAO dao = new UsuarioDAO();
         Usuario usuario = dao.findByNome(nomeDigitado);

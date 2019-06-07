@@ -42,7 +42,7 @@ public class Filial implements Serializable {
      * Método que altera o id da Filial
      * @param id 
      */
-    public void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
     
@@ -68,7 +68,6 @@ public class Filial implements Serializable {
      * @return String
      */
     @OneToOne
-    @Column(nullable = false)
     public Estoque getEstoque() {
         return estoque;
     }

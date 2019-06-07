@@ -9,20 +9,20 @@ import connection.JPAUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import model.PedidoEstoque;
+import model.ProdutoEstoque;
 
 /**
  *
- * @author 068943091112
+ * @author Roberto Oliveira
  */
-public class PedidoEstoqueDAO {
+public class ProdutoEstoqueDAO {
 
-    public void persist(PedidoEstoque pedidoEstoque) {
+    public void persist(ProdutoEstoque produtoEstoque) {
         EntityManager em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
 
         try {
-            em.persist(pedidoEstoque);
+            em.persist(produtoEstoque);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,12 +32,12 @@ public class PedidoEstoqueDAO {
         }
     }
 
-    public void remove(PedidoEstoque pedidoEstoque) {
+    public void remove(ProdutoEstoque produtoEstoque) {
         EntityManager em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
         try {
-            pedidoEstoque = em.find(PedidoEstoque.class, pedidoEstoque.getId());
-            em.remove(pedidoEstoque);
+            produtoEstoque = em.find(ProdutoEstoque.class, produtoEstoque.getId());
+            em.remove(produtoEstoque);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,19 +47,19 @@ public class PedidoEstoqueDAO {
         }
     }
 
-    public PedidoEstoque findById(final long id) {
+    public ProdutoEstoque findById(final long id) {
         EntityManager em = JPAUtil.getEntityManager();
-        PedidoEstoque pedidoEstoque = em.find(PedidoEstoque.class, id);
+        ProdutoEstoque produtoEstoque = em.find(ProdutoEstoque.class, id);
         em.close();
-        return pedidoEstoque;
+        return produtoEstoque;
     }
 
-    public List<PedidoEstoque> getList() {
+    public List<ProdutoEstoque> getList() {
         EntityManager em = JPAUtil.getEntityManager();
-        List<PedidoEstoque> lista = null;
+        List<ProdutoEstoque> lista = null;
 
         try {
-            Query query = em.createQuery("from PedidoEstoque");
+            Query query = em.createQuery("from ProdutoEstoque");
             lista = query.getResultList();
         } catch (Exception e) {
             lista = null;

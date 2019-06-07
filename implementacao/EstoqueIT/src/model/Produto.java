@@ -14,7 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 /**
- *
+ * Classe que representa uma entidade de Produto no Banco de Dados
+ * Será criada automaticamente uma tabela Produto
  * @author Roberto Oliveira
  */
 @Entity
@@ -27,62 +28,110 @@ public class Produto implements Serializable {
     private double precoCusto;
     private double precoVenda;
 
+    /**
+     * Método que retorna o id do produto
+     * @return Long
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    /**
+     * Método que altera o id do produto
+     * @param id 
+     */
+    private void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Método que retorna o código de barras do produto
+     * @return String
+     */
     @Column(length = 50, nullable = false)
     public String getCodigoBarras() {
         return codigoBarras;
     }
 
+    /**
+     * Método que altera o código de barras do produto
+     * @param codigoBarras 
+     */
     public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras.toUpperCase();
     }
 
+    /**
+     * Método que altera a descrição do produto
+     * @return String
+     */
     @Column(length = 200, nullable = false)
     public String getDescricao() {
         return descricao;
     }
 
+    /**
+     * Método que altera a descrição do produto
+     * @param descricao 
+     */
     public void setDescricao(String descricao) {
         this.descricao = descricao.toUpperCase();
     }
 
+    /**
+     * Método que retorna a categoria do produto
+     * @return Categoria
+     */
     @OneToOne
-    @Column(nullable = false)
     public Categoria getCategoria() {
         return categoria;
     }
 
+    /**
+     * Método que altera a categoria do produto
+     * @param categoria 
+     */
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
+    /**
+     * Método que retorna o preço de custo do produto
+     * @return double
+     */
     @Column(nullable = false)
     public double getPrecoCusto() {
         return precoCusto;
     }
 
+    /**
+     * Método que altera o preço de custo do produto
+     * @param precoCusto 
+     */
     public void setPrecoCusto(double precoCusto) {
         this.precoCusto = precoCusto;
     }
 
+    /**
+     * Método que retorna o preço de venda do produto
+     * @return double
+     */
     @Column(length = 200, nullable = false)
     public double getPrecoVenda() {
         return precoVenda;
     }
 
+    /**
+     * Método que altera o preço de venda do produto
+     * @param precoVenda 
+     */
     public void setPrecoVenda(double precoVenda) {
         this.precoVenda = precoVenda;
     }
  
+    // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTÊNCIA DO JAVA
     @Override
     public int hashCode() {
         int hash = 0;

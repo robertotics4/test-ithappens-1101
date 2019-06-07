@@ -6,23 +6,21 @@
 package dao;
 
 import connection.JPAUtil;
-import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import model.PedidoEstoque;
+import model.Estoque;
 
 /**
  *
- * @author 068943091112
+ * @author Roberto Oliveira
  */
-public class PedidoEstoqueDAO {
+public class EstoqueDAO {
 
-    public void persist(PedidoEstoque pedidoEstoque) {
+    public void persist(Estoque estoque) {
         EntityManager em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
 
         try {
-            em.persist(pedidoEstoque);
+            em.persist(estoque);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,12 +30,12 @@ public class PedidoEstoqueDAO {
         }
     }
 
-    public void remove(PedidoEstoque pedidoEstoque) {
+    public void remove(Estoque estoque) {
         EntityManager em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
         try {
-            pedidoEstoque = em.find(PedidoEstoque.class, pedidoEstoque.getId());
-            em.remove(pedidoEstoque);
+            estoque = em.find(Estoque.class, estoque.getId());
+            em.remove(estoque);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,26 +45,10 @@ public class PedidoEstoqueDAO {
         }
     }
 
-    public PedidoEstoque findById(final long id) {
+    public Estoque findById(final long id) {
         EntityManager em = JPAUtil.getEntityManager();
-        PedidoEstoque pedidoEstoque = em.find(PedidoEstoque.class, id);
+        Estoque estoque = em.find(Estoque.class, id);
         em.close();
-        return pedidoEstoque;
-    }
-
-    public List<PedidoEstoque> getList() {
-        EntityManager em = JPAUtil.getEntityManager();
-        List<PedidoEstoque> lista = null;
-
-        try {
-            Query query = em.createQuery("from PedidoEstoque");
-            lista = query.getResultList();
-        } catch (Exception e) {
-            lista = null;
-        } finally {
-            em.close();
-        }
-
-        return lista;
+        return estoque;
     }
 }

@@ -8,18 +8,28 @@ package util;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 /**
- *
+ * Classe que possui métodos de criptografia de senhas utilizando a biblioteca Jasypt
  * @author Roberto Oliveira
  */
 public abstract class Criptografia {
 
     private static final BasicTextEncryptor cryptor = new BasicTextEncryptor();
 
+    /**
+     * Método para criptografar uma senha
+     * @param senha
+     * @return String
+     */
     public static String encrypt(String senha) {
         cryptor.setPasswordCharArray("senhaCryptor".toCharArray());
         return cryptor.encrypt(senha);
     }
 
+    /**
+     * Método para descriptografar uma senha
+     * @param senha
+     * @return String
+     */
     public static String decrypt(String senha) {
         return cryptor.decrypt(senha);
     }

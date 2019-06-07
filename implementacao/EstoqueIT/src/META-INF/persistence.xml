@@ -13,6 +13,8 @@
     <class>model.FormaPagamento</class>
     <class>dao.FormaPagamentoDAO</class>
     <class>model.Categoria</class>
+    <class>model.ProdutoEstoque</class>
+    <class>dao.EstoqueDAO</class>
     <properties>
     </properties>
   </persistence-unit>

@@ -19,12 +19,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
- *
+ * Classe que representa uma entidade de Pedido no Banco de Dados
+ * Será criada automaticamente uma tabela PedidoEstoque
  * @author Roberto Oliveira
  */
 @Entity
 public class PedidoEstoque implements Serializable {
 
+    /**
+     * Enum que representa o tipo do pedido
+     */
     public enum TipoPedido {
         ENTRADA, SAIDA
     }
@@ -39,75 +43,131 @@ public class PedidoEstoque implements Serializable {
     private String observacao;
     private List<ItensPedido> itensPedido;
 
+    /**
+     * Construtor padrão da classe ProdutoEstoque
+     */
     public PedidoEstoque() {
         itensPedido = new ArrayList<>();
     }
 
+    /**
+     * Método que retorna o id do pedido
+     * @return 
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    /**
+     * Método que altera o id do pedido
+     * @param id 
+     */
+    private void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Método que retorna o tipo do pedido
+     * @return TipoPedido
+     */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     public TipoPedido getTipoPedido() {
         return tipoPedido;
     }
 
+    /**
+     * Método que altera o tipo do pedido
+     * @param tipoPedido 
+     */
     public void setTipoPedido(TipoPedido tipoPedido) {
         this.tipoPedido = tipoPedido;
     }
 
+    /**
+     * Método que retorna a filial
+     * @return Filial
+     */
     @OneToOne
-    @Column(nullable = false)
     public Filial getFilial() {
         return filial;
     }
 
+    /**
+     * Método que altera a filial
+     * @param filial 
+     */
     public void setFilial(Filial filial) {
         this.filial = filial;
     }
 
+    /**
+     * Método que retorna o usuário
+     * @return Usuario
+     */
     @OneToOne
-    @Column(nullable = false)
     public Usuario getUsuario() {
         return usuario;
     }
 
+    /**
+     * Método que altera o usuário
+     * @param usuario 
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
+    /**
+     * Método que retorna o cliente
+     * @return Cliente
+     */
     @OneToOne
-    @Column(nullable = false)
     public Cliente getCliente() {
         return cliente;
     }
 
+    /**
+     * Método que altera o cliente
+     * @param cliente 
+     */
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
+    /**
+     * Método que retorna a observação
+     * @return String
+     */
     @Column(length = 300, nullable = false)
     public String getObservacao() {
         return observacao;
     }
 
+    /**
+     * Método que altera a observação
+     * @param observacao 
+     */
     public void setObservacao(String observacao) {
         this.observacao = observacao.toUpperCase();
     }
 
+    /**
+     * Método que retorna os itens do pedido
+     * @return List<ItensPedido>
+     */
     @OneToMany
     @Column(nullable = true)
     public List<ItensPedido> getItensPedido() {
         return itensPedido;
     }
 
+    /**
+     * Método que altera os itens do pedido
+     * @param itensPedido 
+     */
     public void setItensPedido(List<ItensPedido> itensPedido) {
         this.itensPedido = itensPedido;
     }

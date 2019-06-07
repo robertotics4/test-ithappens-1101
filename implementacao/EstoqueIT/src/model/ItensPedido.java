@@ -16,12 +16,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 /**
- *
+ * Classe que representa a entidade de Itens do Pedido no Banco de Dados
+ * Será criada automaticamente uma tabela ItensPedido
  * @author Roberto Oliveira
  */
 @Entity
 public class ItensPedido implements Serializable {
 
+    /**
+     * Enum que representa o status do item
+     */
     public enum StatusItem {
         ATIVO, CANCELADO, PROCESSADO
     }
@@ -34,64 +38,114 @@ public class ItensPedido implements Serializable {
     private double valorUnitario;
     private double valorTotal;
 
+    /**
+     * Construtor padrão da classe ItensPedido
+     */
     public ItensPedido() {
         statusItem = StatusItem.ATIVO;
         quantidade = 0;
     }
 
+    /**
+     * Método que retorna o id do item do pedido
+     * @return Long
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
+    /**
+     * Método que altera o id do item do pedido
+     * @param id 
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Método que retorna o produto do item do pedido
+     * @return Produto
+     */
     @ManyToOne
-    @Column(nullable = true)
     public Produto getProduto() {
         return produto;
     }
 
+    /**
+     * Método que altera o produto do item do pedido
+     * @param produto 
+     */
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
 
+    /**
+     * Método que retorna o estado do item do pedido
+     * @return StatusItem
+     */
     @Enumerated
     @Column(nullable = false)
     public StatusItem getStatusItem() {
         return statusItem;
     }
 
+    /**
+     * Método que altera o estado do item do pedido
+     * @param statusItem 
+     */
     public void setStatusItem(StatusItem statusItem) {
         this.statusItem = statusItem;
     }
 
+    /**
+     * Método que retorna a quantidade de itens do pedido
+     * @return int
+     */
     @Column(nullable = false)
     public int getQuantidade() {
         return quantidade;
     }
 
+    /**
+     * Método que altera a quantidade de itens do pedido
+     * @param quantidade 
+     */
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 
+    /**
+     * Método que retorna o valor unitário do item do pedido
+     * @return double
+     */
     @Column(nullable = false)
     public double getValorUnitario() {
         return valorUnitario;
     }
 
+    /**
+     * Método que altera o valor unitário do item do pedido
+     * @param valorUnitario 
+     */
     public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 
+    /**
+     * Método que retorna o valor total do pedido
+     * @return double
+     */
     @Transient
     public double getValorTotal() {
         return quantidade * valorUnitario;
     }
 
+    /**
+     * Método que altera o valor total do pedido
+     * @param valorTotal 
+     */
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
