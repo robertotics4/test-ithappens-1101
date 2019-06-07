@@ -41,7 +41,7 @@ public class Cliente implements Serializable {
      * Método que altera o id do cliente
      * @param id 
      */
-    private void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
