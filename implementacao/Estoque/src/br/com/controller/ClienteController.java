@@ -53,6 +53,7 @@ public class ClienteController {
             Cliente retorno = cdao.findByNome(nome);
 
             if (retorno != null) {
+                print(retorno);
                 return retorno;
             } else {
                 System.out.println("Cliente não encontrado");
@@ -73,10 +74,7 @@ public class ClienteController {
         List<Cliente> lista = cdao.getList();
 
         lista.stream().forEach(c -> {
-            System.out.println("Código: " + String.valueOf(c.getId()));
-            System.out.println("Nome: " + c.getNome());
-            System.out.println("Endereço: " + c.getEndereco());
-            System.out.println("Telefone: " + c.getTelefone());
+            print(c);
         });
 
         return lista;
@@ -105,5 +103,16 @@ public class ClienteController {
 
         System.out.println("Cliente inválido");
         return null;
+    }
+
+    /**
+     * Método que imprime um cliente
+     * @param cliente - cliente a ser impresso
+     */
+    public static void print(Cliente cliente) {
+        System.out.println("Código: " + String.valueOf(cliente.getId()));
+        System.out.println("Nome: " + cliente.getNome());
+        System.out.println("Endereço: " + cliente.getEndereco());
+        System.out.println("Telefone: " + cliente.getTelefone());
     }
 }

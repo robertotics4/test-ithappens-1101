@@ -47,11 +47,14 @@ public class PedidoEstoque implements Serializable {
     private List<ItensPedido> itensPedido;
     private FormaPagamento formaPagamento;
     private double valorTotal;
+    private Estoque estoque;
 
     /**
      * Construtor padrão da classe ProdutoEstoque
+     *
+     * @param estoque - estoque relacionado ao pedido
      */
-    public PedidoEstoque() {
+    public PedidoEstoque(Estoque estoque) {
         itensPedido = new ArrayList<>();
         valorTotal = 0;
     }
@@ -66,8 +69,9 @@ public class PedidoEstoque implements Serializable {
      * @param observacao - observação do pedido
      * @param itensPedido - item do pedido
      * @param formaPagamento - forma de pagamento do pedido
+     * @param estoque - estoque relacionado ao pedido
      */
-    public PedidoEstoque(TipoPedido tipoPedido, Filial filial, Usuario usuario, Cliente cliente, String observacao, List<ItensPedido> itensPedido, FormaPagamento formaPagamento) {
+    public PedidoEstoque(TipoPedido tipoPedido, Filial filial, Usuario usuario, Cliente cliente, String observacao, List<ItensPedido> itensPedido, FormaPagamento formaPagamento, Estoque estoque) {
         this.tipoPedido = tipoPedido;
         this.filial = filial;
         this.usuario = usuario;
@@ -240,7 +244,7 @@ public class PedidoEstoque implements Serializable {
     @Transient
     public double getValorTotal() {
         valorTotal = 0;
-        
+
         itensPedido.stream().forEach(i -> {
             valorTotal += i.getValorUnitario();
         });
@@ -255,6 +259,14 @@ public class PedidoEstoque implements Serializable {
      */
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    /**
+     * Método que retorna o estoque relacionado ao pedido
+     * @return Estoque
+     */
+    public Estoque getEstoque() {
+        return estoque;
     }
 
     // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTÊNCIA DO JAVA

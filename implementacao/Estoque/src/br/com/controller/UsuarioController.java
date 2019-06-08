@@ -53,6 +53,7 @@ public abstract class UsuarioController {
             Usuario retorno = udao.findByNome(nome);
 
             if (retorno != null) {
+                print(retorno);
                 return retorno;
             } else {
                 System.out.println("Usuário não encontrado");
@@ -73,8 +74,7 @@ public abstract class UsuarioController {
         List<Usuario> lista = udao.getList();
 
         lista.stream().forEach(u -> {
-            System.out.println("Código: " + String.valueOf(u.getId()));
-            System.out.println("Nome: " + u.getNome());
+            print(u);
         });
 
         return lista;
@@ -103,5 +103,14 @@ public abstract class UsuarioController {
 
         System.out.println("Usuário inválido");
         return null;
+    }
+
+    /**
+     * Método que imprime um usuário
+     * @param usuario - usuário a ser impresso
+     */
+    public static void print(Usuario usuario) {
+        System.out.println("Código: " + String.valueOf(usuario.getId()));
+        System.out.println("Nome: " + usuario.getNome());
     }
 }

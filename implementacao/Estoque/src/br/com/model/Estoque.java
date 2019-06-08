@@ -124,7 +124,7 @@ public class Estoque implements Serializable {
      * @return double
      */
     @Column(nullable = false)
-    private double getValorTotal() {
+    public double getValorTotal() {
         produtos.stream().forEach(p -> {
             valorTotal += p.getPrecoCusto();
         });
@@ -149,7 +149,7 @@ public class Estoque implements Serializable {
      * @return boolean
      */
     public boolean isAvailable(Produto produto, int quantidade) {
-        if (quantidade > 0 || quantidade <= produtos.size()) {
+        if (quantidade > 0 && quantidade <= produtos.size()) {
             return true;
         } else {
             return false;

@@ -6,21 +6,23 @@
 package br.com.dao;
 
 import br.com.connection.JPAUtil;
+import br.com.model.ItensPedido;
+import java.util.List;
 import javax.persistence.EntityManager;
-import br.com.model.Estoque;
+import javax.persistence.Query;
 
 /**
  *
  * @author Roberto Oliveira
  */
-public class EstoqueDAO {
+public class ItensPedidoDAO {
 
-    public void persist(Estoque estoque) {
+    public void persist(ItensPedido itensPedido) {
         EntityManager em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
 
         try {
-            em.persist(estoque);
+            em.persist(itensPedido);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -30,12 +32,12 @@ public class EstoqueDAO {
         }
     }
 
-    public void update(Estoque estoque) {
+    public void remove(ItensPedido itensPedido) {
         EntityManager em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
-
         try {
-            em.merge(estoque);
+            itensPedido = em.find(ItensPedido.class, itensPedido.getId());
+            em.remove(itensPedido);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,25 +47,26 @@ public class EstoqueDAO {
         }
     }
 
-    public void remove(Estoque estoque) {
+    public ItensPedido findById(final long id) {
         EntityManager em = JPAUtil.getEntityManager();
-        em.getTransaction().begin();
-        try {
-            estoque = em.find(Estoque.class, estoque.getId());
-            em.remove(estoque);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
-    }
-
-    public Estoque findById(final long id) {
-        EntityManager em = JPAUtil.getEntityManager();
-        Estoque estoque = em.find(Estoque.class, id);
+        ItensPedido itensPedido = em.find(ItensPedido.class, id);
         em.close();
-        return estoque;
+        return itensPedido;
+    }
+
+    public List<ItensPedido> getList() {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<ItensPedido> lista = null;
+
+        try {
+            Query query = em.createQuery("from ItensPedido");
+            lista = query.getResultList();
+        } catch (Exception e) {
+            lista = null;
+        } finally {
+            em.close();
+        }
+
+        return lista;
     }
 }

@@ -56,6 +56,12 @@ public class ProdutoController {
             Produto retorno = pdao.findById(sequencial);
 
             if (retorno != null) {
+                System.out.println("Código: " + String.valueOf(retorno.getId()));
+                System.out.println("Código de Barras: " + retorno.getCodigoBarras());
+                System.out.println("Descrição: " + retorno.getDescricao());
+                System.out.println("Categoria: " + retorno.getCategoria());
+                System.out.printf("Preço de Custo: %.2f", retorno.getPrecoCusto());
+                System.out.printf("Preço de Venda: %.2f", retorno.getPrecoVenda());
                 return retorno;
             } else {
                 System.out.println("Produto não encontrado");
@@ -75,26 +81,25 @@ public class ProdutoController {
      */
     public static Produto find(String codigoBarras, String descricao) {
         // Validação dos dados
-        if (!codigoBarras.equals("")) {
+        if (!codigoBarras.equals("") && !descricao.equals("")) {
             pdao = new ProdutoDAO();
-            Produto retorno = pdao.findByCodBarras(codigoBarras);
+            Produto retorno = new Produto();
+
+            if (!descricao.equals("")) {
+                retorno = pdao.findByCodBarras(codigoBarras);
+            }
+
+            if (!descricao.equals("")) {
+                retorno = pdao.findByCodBarras(descricao);
+            }
 
             if (retorno != null) {
+                print(retorno);
                 return retorno;
             } else {
                 System.out.println("Produto não encontrado");
             }
-        }
 
-        if (!descricao.equals("")) {
-            pdao = new ProdutoDAO();
-            Produto retorno = pdao.findByCodBarras(descricao);
-
-            if (retorno != null) {
-                return retorno;
-            } else {
-                System.out.println("Produto não encontrado");
-            }
         }
 
         System.out.println("Produto inválido");
@@ -110,15 +115,30 @@ public class ProdutoController {
         pdao = new ProdutoDAO();
         List<Produto> lista = pdao.getList();
 
-        lista.stream().forEach(p -> {
-            System.out.println("Código: " + String.valueOf(p.getId()));
-            System.out.println("Código de Barras: " + p.getCodigoBarras());
-            System.out.println("Descrição: " + p.getDescricao());
-            System.out.println("Categoria: " + p.getCategoria());
-            System.out.printf("Preço de Custo: %.2f", p.getPrecoCusto());
-            System.out.printf("Preço de Venda: %.2f", p.getPrecoVenda());
-        });
+        if (lista.isEmpty()) {
+            System.out.println("Não existem produtos cadastrados");
+        } else {
+            lista.stream().forEach(p -> {
+                print(p);
+            });
 
-        return lista;
+            return lista;
+        }
+
+        return null;
+    }
+
+    /**
+     * Método que imprime um produto
+     *
+     * @param produto - produto a ser impresso
+     */
+    public static void print(Produto produto) {
+        System.out.println("Código: " + String.valueOf(produto.getId()));
+        System.out.println("Código de Barras: " + produto.getCodigoBarras());
+        System.out.println("Descrição: " + produto.getDescricao());
+        System.out.println("Categoria: " + produto.getCategoria());
+        System.out.printf("Preço de Custo: %.2f", produto.getPrecoCusto());
+        System.out.printf("Preço de Venda: %.2f", produto.getPrecoVenda());
     }
 }
