@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  * Classe que representa uma entidade de Pedido no Banco de Dados Será criada
@@ -45,12 +46,35 @@ public class PedidoEstoque implements Serializable {
     private String observacao;
     private List<ItensPedido> itensPedido;
     private FormaPagamento formaPagamento;
+    private double valorTotal;
 
     /**
      * Construtor padrão da classe ProdutoEstoque
      */
     public PedidoEstoque() {
         itensPedido = new ArrayList<>();
+        valorTotal = 0;
+    }
+
+    /**
+     * Construtor que recebe todos os parâmetros da classe PedidoEstoque
+     *
+     * @param tipoPedido - tipo do pedido
+     * @param filial - filial do pedido
+     * @param usuario - usuario do pedido
+     * @param cliente - cliente do pedido
+     * @param observacao - observação do pedido
+     * @param itensPedido - item do pedido
+     * @param formaPagamento - forma de pagamento do pedido
+     */
+    public PedidoEstoque(TipoPedido tipoPedido, Filial filial, Usuario usuario, Cliente cliente, String observacao, List<ItensPedido> itensPedido, FormaPagamento formaPagamento) {
+        this.tipoPedido = tipoPedido;
+        this.filial = filial;
+        this.usuario = usuario;
+        this.cliente = cliente;
+        this.observacao = observacao;
+        this.itensPedido = itensPedido;
+        this.formaPagamento = formaPagamento;
     }
 
     /**
@@ -206,6 +230,31 @@ public class PedidoEstoque implements Serializable {
      */
     public void setFormaPagamento(FormaPagamento formaPagamento) {
         this.formaPagamento = formaPagamento;
+    }
+
+    /**
+     * Método que retorna o valor total
+     *
+     * @return double
+     */
+    @Transient
+    public double getValorTotal() {
+        valorTotal = 0;
+        
+        itensPedido.stream().forEach(i -> {
+            valorTotal += i.getValorUnitario();
+        });
+
+        return valorTotal;
+    }
+
+    /**
+     * Método que altera o valor total
+     *
+     * @param valorTotal - valor total do pedido
+     */
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTÊNCIA DO JAVA

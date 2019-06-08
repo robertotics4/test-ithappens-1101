@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 /**
  * Classe que representa a entidade de Itens do Pedido no Banco de Dados Será
@@ -37,7 +36,6 @@ public class ItensPedido implements Serializable {
     private StatusItem statusItem;
     private int quantidade;
     private double valorUnitario;
-    private double valorTotal;
 
     /**
      * Construtor padrão da classe ItensPedido
@@ -45,6 +43,20 @@ public class ItensPedido implements Serializable {
     public ItensPedido() {
         statusItem = StatusItem.ATIVO;
         quantidade = 0;
+    }
+
+    /**
+     * Construtor que recebe parâmetros da classe ItensPedido
+     * @param produto - produto do item
+     * @param statusItem - status do item
+     * @param quantidade - quantidade do item
+     * @param valorUnitario - valor unitário do item
+     */
+    public ItensPedido(Produto produto, StatusItem statusItem, int quantidade, double valorUnitario) {
+        this.produto = produto;
+        this.statusItem = statusItem;
+        this.quantidade = quantidade;
+        this.valorUnitario = valorUnitario;
     }
 
     /**
@@ -142,25 +154,6 @@ public class ItensPedido implements Serializable {
      */
     public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
-    }
-
-    /**
-     * Método que retorna o valor total do pedido
-     *
-     * @return double
-     */
-    @Transient
-    public double getValorTotal() {
-        return quantidade * valorUnitario;
-    }
-
-    /**
-     * Método que altera o valor total do pedido
-     *
-     * @param valorTotal - valor total do pedido
-     */
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
     }
 
     // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTêNCIA DO JAVA

@@ -37,11 +37,11 @@ public class Produto implements Serializable {
 
     /**
      * Construtor que recebe todos os parâmetros da classe Produto
-     * @param codigoBarras
-     * @param descricao
-     * @param categoria
-     * @param precoCusto
-     * @param precoVenda 
+     * @param codigoBarras - código de barras do produto
+     * @param descricao - descrição do produto
+     * @param categoria - categoria do produto
+     * @param precoCusto - preço de custo do produto
+     * @param precoVenda - preço de venda do produto
      */
     public Produto(String codigoBarras, String descricao, String categoria, double precoCusto, double precoVenda) {
         this.codigoBarras = codigoBarras;

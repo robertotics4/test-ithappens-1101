@@ -36,7 +36,7 @@ public class DataLoader {
         // Criando um usuário padrão
         UsuarioDAO udao = new UsuarioDAO();
         Usuario usuario = new Usuario();
-        usuario.setNome("admin");
+        usuario.setNome("ADMIN");
         usuario.setSenha("1234");
         udao.persist(usuario);
 
@@ -74,9 +74,9 @@ public class DataLoader {
 
         // Criando as formas de pagamento
         FormaPagamentoDAO fpdao = new FormaPagamentoDAO();
-        FormaPagamento fp1 = new FormaPagamento("Dinheiro");
-        FormaPagamento fp2 = new FormaPagamento("Cartão");
-        FormaPagamento fp3 = new FormaPagamento("Débito");
+        FormaPagamento fp1 = new FormaPagamento("DINHEIRO");
+        FormaPagamento fp2 = new FormaPagamento("CARTAO");
+        FormaPagamento fp3 = new FormaPagamento("DEBITO");
         fpdao.persist(fp1);
         fpdao.persist(fp2);
         fpdao.persist(fp3);

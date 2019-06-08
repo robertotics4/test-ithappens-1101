@@ -82,6 +82,7 @@ public class Estoque implements Serializable {
 
     /**
      * Método que retorna a lista de produtos do estoque
+     *
      * @return List
      */
     @OneToMany
@@ -91,12 +92,13 @@ public class Estoque implements Serializable {
 
     /**
      * Método que altera a lista de produtos do estoque
+     *
      * @param produtos - produtos do estoque
      */
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }
-    
+
     /**
      * Método que retorna a quantidade mínima de produtos
      *
@@ -137,6 +139,21 @@ public class Estoque implements Serializable {
      */
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    /**
+     * Método que informa se o produto está disponível no estoque
+     *
+     * @param produto - produto desejado
+     * @param quantidade - quantidade desejada
+     * @return boolean
+     */
+    public boolean isAvailable(Produto produto, int quantidade) {
+        if (quantidade > 0 || quantidade <= produtos.size()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTÊNCIA DO JAVA
