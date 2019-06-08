@@ -97,7 +97,7 @@ public class PedidoEstoque implements Serializable {
      *
      * @param id
      */
-    private void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -263,8 +263,10 @@ public class PedidoEstoque implements Serializable {
 
     /**
      * Método que retorna o estoque relacionado ao pedido
+     *
      * @return Estoque
      */
+    @Transient
     public Estoque getEstoque() {
         return estoque;
     }

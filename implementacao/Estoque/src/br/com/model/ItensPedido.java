@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 /**
  * Classe que representa a entidade de Itens do Pedido no Banco de Dados Será
@@ -167,6 +168,7 @@ public class ItensPedido implements Serializable {
      * Método que retorna o pedido relacionado ao item
      * @return PedidoEstoquw
      */
+    @Transient
     public PedidoEstoque getPedidoEstoque() {
         return pedidoEstoque;
     }

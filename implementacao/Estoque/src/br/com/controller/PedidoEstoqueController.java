@@ -22,6 +22,12 @@ public class PedidoEstoqueController {
 
     private static PedidoEstoqueDAO pdao = new PedidoEstoqueDAO();
 
+    /**
+     * Método que salva um pedido do estoque
+     *
+     * @param pedidoEstoque - pedido do estoque a ser salvo
+     * @return PedidoEstoque
+     */
     public static PedidoEstoque save(PedidoEstoque pedidoEstoque) {
         // Validação dos dados
         if (pedidoEstoque != null) {
@@ -75,6 +81,12 @@ public class PedidoEstoqueController {
         return null;
     }
 
+    /**
+     * Método que retorna a lista de itens do pedido
+     *
+     * @param pedidoEstoque - pedido do estoque
+     * @return List
+     */
     public static List<ItensPedido> listItensPedido(PedidoEstoque pedidoEstoque) {
         // Validando dados
         if (estoque != null) {
@@ -90,6 +102,11 @@ public class PedidoEstoqueController {
         return null;
     }
 
+    /**
+     * Método que imprime um pedido do estoque
+     *
+     * @param pedidoEstoque - pedido do estoque a ser impresso
+     */
     public static void print(PedidoEstoque pedidoEstoque) {
         System.out.println("Código: " + String.valueOf(pedidoEstoque.getId()));
         System.out.println("Tipo do Pedido: " + pedidoEstoque.getTipoPedido().toString());
