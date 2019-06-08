@@ -27,6 +27,24 @@ public class Usuario implements Serializable {
     private String senha;
 
     /**
+     * Construtor padrão da classe Usuario
+     */
+    public Usuario() {
+
+    }
+
+    /**
+     * Construtor que recebe os parâmetros da classe Usuario
+     *
+     * @param nome - nome do usuario
+     * @param senha - senha do usuario
+     */
+    public Usuario(String nome, String senha) {
+        this.nome = nome;
+        this.senha = senha;
+    }
+
+    /**
      * Método que retorna o id do usuário
      *
      * @return Long
