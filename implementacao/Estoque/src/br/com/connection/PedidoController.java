@@ -6,7 +6,7 @@
 package br.com.connection;
 
 import br.com.dao.PedidoEstoqueDAO;
-import static br.com.model.Filial_.estoque;
+import br.com.model.Estoque;
 import br.com.model.PedidoEstoque;
 
 /**
@@ -16,6 +16,11 @@ import br.com.model.PedidoEstoque;
  */
 public abstract class PedidoController {
 
+    /**
+     * Método que analisa o pedido e envia a confirmação
+     * @param pedidoEstoque - pedido do estoque
+     * @return boolean
+     */
     public static boolean confirmOlder(PedidoEstoque pedidoEstoque) {
         PedidoEstoqueDAO pedao = new PedidoEstoqueDAO();
         Estoque estoque = pedidoEstoque.getFilial().getEstoque();

@@ -1,5 +1,5 @@
-connection
-dao
-model
-util
-view
+br.com.connection
+br.com.dao
+br.com.estoque
+br.com.model
+br.com.util
