@@ -3,7 +3,7 @@ const mongoose = require('../database');
 const FilialSchema = new mongoose.Schema({
     estoque: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Estoque'
+        req: 'Estoque',
     },
     nome: {
         type: String,
