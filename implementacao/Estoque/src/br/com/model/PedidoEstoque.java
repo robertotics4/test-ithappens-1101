@@ -57,6 +57,7 @@ public class PedidoEstoque implements Serializable {
     public PedidoEstoque(Estoque estoque) {
         itensPedido = new ArrayList<>();
         valorTotal = 0;
+        this.estoque = estoque;
     }
 
     /**
