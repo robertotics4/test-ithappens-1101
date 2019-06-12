@@ -8,7 +8,6 @@ package br.com.controller;
 import br.com.dao.EstoqueDAO;
 import br.com.dao.PedidoEstoqueDAO;
 import br.com.model.Estoque;
-import static br.com.model.Filial_.estoque;
 import br.com.model.ItensPedido;
 import br.com.model.PedidoEstoque;
 import java.util.List;
@@ -89,7 +88,7 @@ public class PedidoEstoqueController {
      */
     public static List<ItensPedido> listItensPedido(PedidoEstoque pedidoEstoque) {
         // Validando dados
-        if (estoque != null) {
+        if (pedidoEstoque != null) {
             List<ItensPedido> lista = pedidoEstoque.getItensPedido();
 
             lista.stream().forEach(i -> {
@@ -98,6 +97,11 @@ public class PedidoEstoqueController {
 
             return lista;
         }
+
+        return null;
+    }
+
+    public static ItensPedido addItem(ItensPedido item) {
 
         return null;
     }

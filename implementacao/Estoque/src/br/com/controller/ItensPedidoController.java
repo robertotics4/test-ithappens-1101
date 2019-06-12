@@ -25,30 +25,30 @@ public class ItensPedidoController {
      * @return ItensPedido
      */
     public static ItensPedido save(ItensPedido itensPedido) {
-        // Validação dos dados
-        if (itensPedido != null) {
-            if (itensPedido.getProduto() != null
-                    && !itensPedido.getStatusItem().toString().equals("")
-                    && !(itensPedido.getQuantidade() < 0)
-                    && !(itensPedido.getValorUnitario() < 0)) {
-
-                List<ItensPedido> itensAdicionados = itensPedido.getPedidoEstoque().getItensPedido();
-
-                itensAdicionados.stream().forEach(i -> {
-                    if (itensPedido.getId() == i.getId()) {
-                        System.out.println("Não é possível adicionar um item já existente no pedido");
-                    } else {
-                        idao = new ItensPedidoDAO();
-                        idao.persist(itensPedido);
-                        System.out.println("Item " + itensPedido.getProduto().getDescricao() + " adicionado ao pedido!");
-                    }
-                });
-
-                return itensPedido;
-            }
-        }
-
-        System.out.println("Item inválido");
+//        // Validação dos dados
+//        if (itensPedido != null) {
+//            if (itensPedido.getProduto() != null
+//                    && !itensPedido.getStatusItem().toString().equals("")
+//                    && !(itensPedido.getQuantidade() < 0)
+//                    && !(itensPedido.getValorUnitario() < 0)) {
+//
+//                List<ItensPedido> itensAdicionados = itensPedido.getPedidoEstoque().getItensPedido();
+//
+//                itensAdicionados.stream().forEach(i -> {
+//                    if (itensPedido.getId() == i.getId()) {
+//                        System.out.println("Não é possível adicionar um item já existente no pedido");
+//                    } else {
+//                        idao = new ItensPedidoDAO();
+//                        idao.persist(itensPedido);
+//                        System.out.println("Item " + itensPedido.getProduto().getDescricao() + " adicionado ao pedido!");
+//                    }
+//                });
+//
+//                return itensPedido;
+//            }
+//        }
+//
+//        System.out.println("Item inválido");
         return null;
     }
 

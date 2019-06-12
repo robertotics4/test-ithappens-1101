@@ -36,17 +36,14 @@ public class ItensPedido implements Serializable {
     private StatusItem statusItem;
     private int quantidade;
     private double valorUnitario;
-    private PedidoEstoque pedidoEstoque;
 
     /**
      * Construtor padrão da classe ItensPedido
      *
-     * @param pedidoEstoque - pedido do estoque relacionado ao item
      */
-    public ItensPedido(PedidoEstoque pedidoEstoque) {
+    public ItensPedido() {
         statusItem = StatusItem.ATIVO;
         quantidade = 0;
-        this.pedidoEstoque = pedidoEstoque;
     }
 
     /**
@@ -56,14 +53,12 @@ public class ItensPedido implements Serializable {
      * @param statusItem - status do item
      * @param quantidade - quantidade do item
      * @param valorUnitario - valor unitário do item
-     * @param pedidoEstoque - pedido do estoque relacionado ao item
      */
-    public ItensPedido(Produto produto, StatusItem statusItem, int quantidade, double valorUnitario, PedidoEstoque pedidoEstoque) {
+    public ItensPedido(Produto produto, StatusItem statusItem, int quantidade, double valorUnitario) {
         this.produto = produto;
         this.statusItem = statusItem;
         this.quantidade = quantidade;
         this.valorUnitario = valorUnitario;
-        this.pedidoEstoque = pedidoEstoque;
     }
 
     /**
@@ -161,14 +156,6 @@ public class ItensPedido implements Serializable {
      */
     public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
-    }
-
-    /**
-     * Método que retorna o pedido relacionado ao item
-     * @return PedidoEstoquw
-     */
-    public PedidoEstoque getPedidoEstoque() {
-        return pedidoEstoque;
     }
 
     // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTêNCIA DO JAVA

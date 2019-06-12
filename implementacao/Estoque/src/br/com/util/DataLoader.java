@@ -5,17 +5,15 @@
  */
 package br.com.util;
 
-import br.com.controller.ItensPedidoController;
 import br.com.controller.PedidoEstoqueController;
-import br.com.controller.ProdutoController;
 import br.com.dao.ClienteDAO;
 import br.com.dao.EstoqueDAO;
 import br.com.dao.FilialDAO;
 import br.com.dao.FormaPagamentoDAO;
+import br.com.dao.PedidoEstoqueDAO;
 import br.com.dao.ProdutoDAO;
 import br.com.dao.UsuarioDAO;
 import br.com.model.Cliente;
-import br.com.model.Estoque;
 import br.com.model.Filial;
 import br.com.model.FormaPagamento;
 import br.com.model.ItensPedido;
@@ -89,19 +87,17 @@ public class DataLoader {
             fpdao.persist(fp2);
             fpdao.persist(fp3);
 
-            // Criando um estoque
-            EstoqueDAO edao = new EstoqueDAO();
-            Estoque estoque = new Estoque();
-            List<Produto> listaDeProdutos = pdao.getList();
-            estoque.setProdutos(listaDeProdutos);
-            edao.persist(estoque);
-
             // Criando uma Filial
             FilialDAO fdao = new FilialDAO();
-            Filial filial = new Filial(estoque, "Mix Mateus Cohama", "02.989.291/0001-18", "(98) 3695-9874");
+            Filial filial = new Filial("Mix Mateus Cohama", "02.989.291/0001-18", "(98) 3695-9874");
+            // Adicionando produtos ao estoque da filial
+            List<Produto> listaDeProdutos = pdao.getList();
+            filial.getEstoque().getProdutos().addAll(listaDeProdutos);
+            EstoqueDAO edao = new EstoqueDAO();
+            edao.update(filial.getEstoque());
             fdao.persist(filial);
 
-            PedidoEstoque pedidoEstoque = new PedidoEstoque(estoque);
+            PedidoEstoque pedidoEstoque = new PedidoEstoque(filial.getEstoque());
             pedidoEstoque.setFilial(filial);
             pedidoEstoque.setCliente(c2);
             pedidoEstoque.setUsuario(usuario);
@@ -109,19 +105,14 @@ public class DataLoader {
             pedidoEstoque.setFormaPagamento(fp3);
             pedidoEstoque.setObservacao("Primeiro pedido de estoque.");
 
-            List<ItensPedido> itens = new ArrayList<ItensPedido>();
-            itens.add(new ItensPedido(ProdutoController.find((long) 1), ItensPedido.StatusItem.ATIVO, 25, 27.90, pedidoEstoque));
-            itens.add(new ItensPedido(ProdutoController.find((long) 2), ItensPedido.StatusItem.ATIVO, 10, 2.00, pedidoEstoque));
-            itens.add(new ItensPedido(ProdutoController.find((long) 3), ItensPedido.StatusItem.ATIVO, 40, 3.49, pedidoEstoque));
-            itens.add(new ItensPedido(ProdutoController.find((long) 4), ItensPedido.StatusItem.ATIVO, 20, 4.00, pedidoEstoque));
-            itens.add(new ItensPedido(ProdutoController.find((long) 5), ItensPedido.StatusItem.ATIVO, 4, 18.005, pedidoEstoque));
-
-            itens.stream().forEach(i -> {
-                ItensPedidoController.save(i);
-                pedidoEstoque.getItensPedido().add(i);
-            });
-
             PedidoEstoqueController.save(pedidoEstoque);
+
+            pedidoEstoque.addItem(new ItensPedido(listaDeProdutos.get(0), ItensPedido.StatusItem.ATIVO, 10, 27.90));
+            pedidoEstoque.addItem(new ItensPedido(listaDeProdutos.get(1), ItensPedido.StatusItem.ATIVO, 30, 2));
+            pedidoEstoque.addItem(new ItensPedido(listaDeProdutos.get(0), ItensPedido.StatusItem.ATIVO, 15, 3.49));
+            pedidoEstoque.addItem(new ItensPedido(listaDeProdutos.get(0), ItensPedido.StatusItem.ATIVO, 14, 4));
+
+            new PedidoEstoqueDAO().update(pedidoEstoque);
         }
     }
 }

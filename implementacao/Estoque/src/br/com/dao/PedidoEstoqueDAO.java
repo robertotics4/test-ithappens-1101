@@ -32,6 +32,21 @@ public class PedidoEstoqueDAO {
         }
     }
 
+    public void update(PedidoEstoque pedidoEstoque) {
+        EntityManager em = JPAUtil.getEntityManager();
+        em.getTransaction().begin();
+
+        try {
+            em.merge(pedidoEstoque);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
     public void remove(PedidoEstoque pedidoEstoque) {
         EntityManager em = JPAUtil.getEntityManager();
         em.getTransaction().begin();

@@ -5,6 +5,7 @@
  */
 package br.com.model;
 
+import br.com.dao.ItensPedidoDAO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +53,11 @@ public class PedidoEstoque implements Serializable {
     /**
      * Construtor padrão da classe ProdutoEstoque
      *
-     * @param estoque - estoque relacionado ao pedido
      */
+    public PedidoEstoque() {
+
+    }
+
     public PedidoEstoque(Estoque estoque) {
         itensPedido = new ArrayList<>();
         valorTotal = 0;
@@ -270,6 +274,22 @@ public class PedidoEstoque implements Serializable {
     @Transient
     public Estoque getEstoque() {
         return estoque;
+    }
+
+    /**
+     * Método que insere um item no pedido do estoque
+     *
+     * @param item item do pedido
+     * @return ItensPedido
+     */
+    public ItensPedido addItem(ItensPedido item) {
+        if (item != null) {
+            if (!itensPedido.contains(item)) {
+                this.itensPedido.add(item);
+                new ItensPedidoDAO().persist(item);
+            }
+        }
+        return null;
     }
 
     // CÓDIGO GERADO AUTOMATICAMENTE PELA PERSISTÊNCIA DO JAVA

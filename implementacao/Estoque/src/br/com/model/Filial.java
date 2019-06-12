@@ -5,6 +5,7 @@
  */
 package br.com.model;
 
+import br.com.dao.EstoqueDAO;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,16 +40,16 @@ public class Filial implements Serializable {
     /**
      * Construtor que recebe todos os parâmetros da classe Filial
      *
-     * @param estoque
      * @param nome
      * @param cpnj
      * @param telefone
      */
-    public Filial(Estoque estoque, String nome, String cpnj, String telefone) {
-        this.estoque = estoque;
+    public Filial(String nome, String cpnj, String telefone) {
         this.nome = nome;
         this.cpnj = cpnj;
         this.telefone = telefone;
+        this.estoque = new Estoque();
+        new EstoqueDAO().persist(estoque);
     }
 
     /**
