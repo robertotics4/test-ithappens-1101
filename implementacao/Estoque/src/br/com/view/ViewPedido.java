@@ -7,7 +7,12 @@ package br.com.view;
 
 import br.com.dao.ClienteDAO;
 import br.com.dao.FilialDAO;
+import br.com.dao.PedidoEstoqueDAO;
 import br.com.dao.UsuarioDAO;
+import br.com.model.Cliente;
+import br.com.model.Filial;
+import br.com.model.PedidoEstoque;
+import br.com.model.Usuario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -129,6 +134,11 @@ public class ViewPedido extends javax.swing.JFrame {
         );
 
         btCriarPedido.setText("Criar Pedido");
+        btCriarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCriarPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,6 +166,46 @@ public class ViewPedido extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Método do evento do botão que é responsável em criar o pedido com as
+     * informações iniciais inseridas pelo usuário
+     *
+     * @param evt - evento para disparo do botão
+     */
+    private void btCriarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriarPedidoActionPerformed
+        PedidoEstoqueDAO pedao = new PedidoEstoqueDAO();
+        PedidoEstoque pedidoEstoque = new PedidoEstoque();
+
+        // Setando o tipo do pedido
+        if (cbTipoPedido.getSelectedItem().toString().equals("ENTRADA")) {
+            pedidoEstoque.setTipoPedido(PedidoEstoque.TipoPedido.ENTRADA);
+        } else {
+            pedidoEstoque.setTipoPedido(PedidoEstoque.TipoPedido.SAIDA);
+        }
+
+        // Setando a filial
+        Filial filial = new FilialDAO().findByNome(cbFilial.getSelectedItem().toString());
+        pedidoEstoque.setFilial(filial);
+
+        // Setando o Usuário
+        Usuario usuario = new UsuarioDAO().findByNome(cbUsuario.getSelectedItem().toString());
+        pedidoEstoque.setUsuario(usuario);
+
+        // Setando o cliente
+        Cliente cliente = new ClienteDAO().findByNome(cbCliente.getSelectedItem().toString());
+        pedidoEstoque.setCliente(cliente);
+
+        // Setando a observação
+        pedidoEstoque.setObservacao(taObservacao.getText());
+
+        // Persistindo o pedido
+        pedao.persist(pedidoEstoque);
+
+        // Chamando a tela de seleção de itens
+        new ViewItensPedido(pedidoEstoque).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btCriarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
