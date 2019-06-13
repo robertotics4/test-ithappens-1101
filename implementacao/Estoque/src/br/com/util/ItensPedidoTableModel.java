@@ -31,8 +31,8 @@ public class ItensPedidoTableModel extends AbstractTableModel {
     }
 
     @Override
-    public String getColumnName(int column) {
-        return colunas[column];
+    public String getColumnName(int coluna) {
+        return colunas[coluna];
     }
 
     @Override
@@ -56,4 +56,13 @@ public class ItensPedidoTableModel extends AbstractTableModel {
         return null;
     }
 
+    public void addRow(ItensPedido itensPedido) {
+        this.itens.add(itensPedido);
+        this.fireTableDataChanged();
+    }
+    
+    public void removeRow(int linha) {
+        this.itens.remove(linha);
+        this.fireTableRowsDeleted(linha, linha);
+    }
 }

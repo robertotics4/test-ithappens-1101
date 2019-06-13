@@ -5,10 +5,17 @@
  */
 package br.com.view;
 
+import br.com.dao.ItensPedidoDAO;
+import br.com.dao.ProdutoDAO;
+import br.com.model.ItensPedido;
 import br.com.model.PedidoEstoque;
+import br.com.model.Produto;
 import br.com.util.ItensPedidoTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,6 +28,8 @@ public class ViewItensPedido extends javax.swing.JFrame {
      */
     private static ItensPedidoTableModel itensTableModel = new ItensPedidoTableModel();
     private static PedidoEstoque pedidoAtual;
+    private static Produto produtoAtual = null;
+    private static List<ItensPedido> itensAtuais = new ArrayList<>();
 
     public ViewItensPedido(PedidoEstoque pedidoEstoque) {
         pedidoAtual = pedidoEstoque;
@@ -63,6 +72,11 @@ public class ViewItensPedido extends javax.swing.JFrame {
         jLabel3.setText("Código de Barras");
 
         btBuscar.setText("Buscar");
+        btBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBuscarActionPerformed(evt);
+            }
+        });
 
         jtItens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,10 +111,25 @@ public class ViewItensPedido extends javax.swing.JFrame {
         btLimpar.setText("Limpar");
 
         btAdicionar.setText("Adicionar");
+        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarActionPerformed(evt);
+            }
+        });
 
         btRemover.setText("Remover");
+        btRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoverActionPerformed(evt);
+            }
+        });
 
         btSalvar.setText("Salvar Pedido");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,6 +221,86 @@ public class ViewItensPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * Método que aciona o evento de buscar Itens no Pedido
+     *
+     * @param evt - evento que busca um item no pedido
+     */
+    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
+        ProdutoDAO pdao = new ProdutoDAO();
+
+        if (!tfSequencial.getText().isEmpty()) {
+            produtoAtual = pdao.findById(Long.parseLong(tfSequencial.getText()));
+        } else if (!tfCodigoBarras.getText().isEmpty()) {
+            produtoAtual = pdao.findByCodBarras(tfCodigoBarras.getText());
+        } else if (!tfDescricao.getText().isEmpty()) {
+            produtoAtual = pdao.findByDescricao(tfDescricao.getText());
+        }
+
+        if (produtoAtual != null) {
+            tfSequencial.setText(String.valueOf(produtoAtual.getId()));
+            tfCodigoBarras.setText(produtoAtual.getCodigoBarras());
+            tfDescricao.setText(produtoAtual.getDescricao());
+        } else {
+            JOptionPane.showMessageDialog(null, "Produto não encontrado");
+        }
+    }//GEN-LAST:event_btBuscarActionPerformed
+
+    /**
+     * Método responsável em adicionar um item na tabela
+     *
+     * @param evt - evento que adiciona um item na tabela
+     */
+    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
+        ItensPedido item = new ItensPedido();
+        item.setProduto(produtoAtual);
+        item.setQuantidade(Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade que deseja adicionar: ")));
+
+        if (pedidoAtual.getTipoPedido() == PedidoEstoque.TipoPedido.ENTRADA) {
+            item.setValorUnitario(produtoAtual.getPrecoCusto());
+        } else {
+            item.setValorUnitario(produtoAtual.getPrecoVenda());
+        }
+
+        itensAtuais.add(item);
+        itensTableModel.addRow(item);
+    }//GEN-LAST:event_btAdicionarActionPerformed
+
+    /**
+     * Método que salva todos os itens da tabela no pedido atual
+     *
+     * @param evt - evento que salva todos os itens no pedido atual
+     */
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        int linhas = jtItens.getRowCount();
+
+        if (linhas != 0) {
+            int contador = 0;
+            List<ItensPedido> itens = new ArrayList<>();
+
+            for (contador = 0; contador < linhas; contador++) {
+                itens.add(new ItensPedidoDAO().f)
+            }
+
+            // Inserindo itens no pedido atual
+            pedidoAtual.getItensPedido().stream().forEach(i -> {
+
+            });
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    /**
+     * Método para excluir itens da tabela no pedido atual
+     *
+     * @param evt - evento que exclui um item da tabela
+     */
+    private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
+        // Verifica se existe uma linha selecionada
+        if (jtItens.getSelectedRow() != -1) {
+            itensTableModel.removeRow(jtItens.getSelectedRow());
+        }
+    }//GEN-LAST:event_btRemoverActionPerformed
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -230,7 +339,51 @@ public class ViewItensPedido extends javax.swing.JFrame {
      * Método responsável em configurar o layout e carregar os dados da tela
      */
     public void configueLayout() {
+        // Setando modelo da tabela
         jtItens.setModel(itensTableModel);
+
+        // Setando listener dos botões
+        enableAddButon();
+        enableQueryButton();
+        enableSaveButton();
+
+    }
+
+    public void enableAddButon() {
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (!(tfSequencial.getText().isEmpty() && tfCodigoBarras.getText().isEmpty() && tfDescricao.getText().isEmpty())) {
+                    btBuscar.setEnabled(true);
+                } else {
+                    btBuscar.setEnabled(false);
+                }
+            }
+        };
+
+        tfCodigoBarras.addActionListener(actionListener);
+        tfDescricao.addActionListener(actionListener);
+        tfSequencial.addActionListener(actionListener);
+    }
+
+    /**
+     * Método que habilita/desabilita o botão de busca
+     */
+    public void enableQueryButton() {
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (tfSequencial.getText().isEmpty() && tfCodigoBarras.getText().isEmpty() && tfDescricao.getText().isEmpty()) {
+                    btBuscar.setEnabled(false);
+                } else {
+                    btBuscar.setEnabled(true);
+                }
+            }
+        };
+
+        tfCodigoBarras.addActionListener(actionListener);
+        tfDescricao.addActionListener(actionListener);
+        tfSequencial.addActionListener(actionListener);
     }
 
     public void enableSaveButton() {
@@ -240,11 +393,16 @@ public class ViewItensPedido extends javax.swing.JFrame {
 
             }
         };
-
-        tfCodigoBarras.addActionListener(actionListener);
-        tfDescricao.addActionListener(actionListener);
-        tfSequencial.addActionListener(actionListener);
+    }
+    
+    public void syncList() {
+        ItensPedidoDAO ipdao = new ItensPedidoDAO();
+        int contador = 0;
+        int linhas = jtItens.getRowCount();
         
+        for(contador = 0; contador < linhas; contador++) {
+            
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
