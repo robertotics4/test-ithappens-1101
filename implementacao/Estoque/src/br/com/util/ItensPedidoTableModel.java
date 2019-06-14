@@ -5,6 +5,7 @@
  */
 package br.com.util;
 
+import br.com.dao.ItensPedidoDAO;
 import br.com.model.ItensPedido;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import javax.swing.table.AbstractTableModel;
 public class ItensPedidoTableModel extends AbstractTableModel {
 
     private List<ItensPedido> itens = new ArrayList<>();
-    private String[] colunas = {"Sequencial", "Descrição", "Qtd", "Valor Unitário", "Valor Total"};
+    private String[] colunas = {"Descrição", "Quantidade", "Valor Unitário", "Valor Total"};
 
     @Override
     public int getRowCount() {
@@ -32,6 +33,7 @@ public class ItensPedidoTableModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int coluna) {
+
         return colunas[coluna];
     }
 
@@ -39,18 +41,13 @@ public class ItensPedidoTableModel extends AbstractTableModel {
     public Object getValueAt(int linha, int coluna) {
         switch (coluna) {
             case 0:
-                return itens.get(linha).getId();
-            case 1:
                 return itens.get(linha).getProduto().getDescricao();
-            case 2:
-                return itens.get(linha).getProduto().getCodigoBarras();
-            case 3:
+            case 1:
                 return itens.get(linha).getQuantidade();
-            case 4:
-                return itens.get(linha).getValorUnitario();
-            case 5:
-                return itens.get(linha).getQuantidade() * itens.get(linha).getValorUnitario();
-
+            case 2:
+                return "R$ " + String.valueOf(itens.get(linha).getValorUnitario());
+            case 3:
+                return "RS " + String.valueOf(itens.get(linha).getQuantidade() * itens.get(linha).getValorUnitario());
         }
 
         return null;
@@ -60,9 +57,13 @@ public class ItensPedidoTableModel extends AbstractTableModel {
         this.itens.add(itensPedido);
         this.fireTableDataChanged();
     }
-    
-    public void removeRow(int linha) {
-        this.itens.remove(linha);
-        this.fireTableRowsDeleted(linha, linha);
+
+    public void removeRow(ItensPedido itensPedido) {
+        this.itens.remove(itensPedido);
+        this.fireTableDataChanged();
+    }
+
+    public List<ItensPedido> getData() {
+        return this.itens;
     }
 }

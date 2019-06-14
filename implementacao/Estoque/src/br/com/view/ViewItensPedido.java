@@ -6,6 +6,7 @@
 package br.com.view;
 
 import br.com.dao.ItensPedidoDAO;
+import br.com.dao.PedidoEstoqueDAO;
 import br.com.dao.ProdutoDAO;
 import br.com.model.ItensPedido;
 import br.com.model.PedidoEstoque;
@@ -13,6 +14,8 @@ import br.com.model.Produto;
 import br.com.util.ItensPedidoTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -29,11 +32,12 @@ public class ViewItensPedido extends javax.swing.JFrame {
     private static ItensPedidoTableModel itensTableModel = new ItensPedidoTableModel();
     private static PedidoEstoque pedidoAtual;
     private static Produto produtoAtual = null;
-    private static List<ItensPedido> itensAtuais = new ArrayList<>();
+    private static ItensPedido itemAtual = null;
 
     public ViewItensPedido(PedidoEstoque pedidoEstoque) {
         pedidoAtual = pedidoEstoque;
         initComponents();
+        configueLayout();
     }
 
     /**
@@ -83,30 +87,15 @@ public class ViewItensPedido extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Sequencial", "Descrição", "Quantidade", "Valor Unitário", "Valor Total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, false, false, true
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            }
+        ));
+        jtItens.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtItensMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jtItens);
-        if (jtItens.getColumnModel().getColumnCount() > 0) {
-            jtItens.getColumnModel().getColumn(0).setResizable(false);
-            jtItens.getColumnModel().getColumn(0).setPreferredWidth(10);
-            jtItens.getColumnModel().getColumn(1).setResizable(false);
-            jtItens.getColumnModel().getColumn(1).setPreferredWidth(200);
-            jtItens.getColumnModel().getColumn(2).setResizable(false);
-            jtItens.getColumnModel().getColumn(2).setPreferredWidth(10);
-            jtItens.getColumnModel().getColumn(3).setResizable(false);
-            jtItens.getColumnModel().getColumn(3).setPreferredWidth(20);
-            jtItens.getColumnModel().getColumn(4).setResizable(false);
-            jtItens.getColumnModel().getColumn(4).setPreferredWidth(20);
-        }
 
         btLimpar.setText("Limpar");
 
@@ -160,9 +149,9 @@ public class ViewItensPedido extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(123, 123, 123)
                 .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(btAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -261,8 +250,8 @@ public class ViewItensPedido extends javax.swing.JFrame {
             item.setValorUnitario(produtoAtual.getPrecoVenda());
         }
 
-        itensAtuais.add(item);
         itensTableModel.addRow(item);
+        enableSaveButton();
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     /**
@@ -272,19 +261,11 @@ public class ViewItensPedido extends javax.swing.JFrame {
      */
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         int linhas = jtItens.getRowCount();
+        PedidoEstoqueDAO pedao = new PedidoEstoqueDAO();
 
         if (linhas != 0) {
-            int contador = 0;
-            List<ItensPedido> itens = new ArrayList<>();
-
-            for (contador = 0; contador < linhas; contador++) {
-                itens.add(new ItensPedidoDAO().f)
-            }
-
-            // Inserindo itens no pedido atual
-            pedidoAtual.getItensPedido().stream().forEach(i -> {
-
-            });
+            pedidoAtual.getItensPedido().addAll(itensTableModel.getData());
+            pedao.update(pedidoAtual);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -294,11 +275,23 @@ public class ViewItensPedido extends javax.swing.JFrame {
      * @param evt - evento que exclui um item da tabela
      */
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-        // Verifica se existe uma linha selecionada
-        if (jtItens.getSelectedRow() != -1) {
-            itensTableModel.removeRow(jtItens.getSelectedRow());
+        int linha = jtItens.getSelectedRow();
+
+        if (linha != -1) {
+            itensTableModel.removeRow(itemAtual);
         }
+
+        enableSaveButton();
     }//GEN-LAST:event_btRemoverActionPerformed
+
+    // Método acionado ao clicar na tabela
+    private void jtItensMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtItensMouseClicked
+        selectItem();
+
+        tfSequencial.setText(String.valueOf(produtoAtual.getId()));
+        tfCodigoBarras.setText(produtoAtual.getCodigoBarras());
+        tfDescricao.setText(produtoAtual.getDescricao());
+    }//GEN-LAST:event_jtItensMouseClicked
 
     /**
      * @param args the command line arguments
@@ -349,6 +342,18 @@ public class ViewItensPedido extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Método que ativa ou desativa o botão de salvar
+     */
+    public void enableSaveButton() {
+
+        if (itensTableModel.getData().isEmpty()) {
+            btSalvar.setEnabled(false);
+        } else {
+            btSalvar.setEnabled(true);
+        }
+    }
+
     public void enableAddButon() {
         ActionListener actionListener = new ActionListener() {
             @Override
@@ -386,22 +391,23 @@ public class ViewItensPedido extends javax.swing.JFrame {
         tfSequencial.addActionListener(actionListener);
     }
 
-    public void enableSaveButton() {
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+    /**
+     * Método que seta o item atual selecionado na tabela
+     */
+    public void selectItem() {
+        int linha = jtItens.getSelectedRow();
+        int coluna = jtItens.getSelectedColumn();
 
+        if (linha != -1) {
+            if (coluna != -1) {
+                Produto produto = new ProdutoDAO().findByDescricao(jtItens.getValueAt(linha, 0).toString());
+                int quantidade = Integer.parseInt(jtItens.getValueAt(linha, 1).toString());
+                double valorUnitario = Double.parseDouble(jtItens.getValueAt(linha, 2).toString().replace("R$ ", ""));
+                ItensPedido item = new ItensPedido(produto, ItensPedido.StatusItem.ATIVO, quantidade, valorUnitario);
+
+                produtoAtual = produto;
+                itemAtual = item;
             }
-        };
-    }
-    
-    public void syncList() {
-        ItensPedidoDAO ipdao = new ItensPedidoDAO();
-        int contador = 0;
-        int linhas = jtItens.getRowCount();
-        
-        for(contador = 0; contador < linhas; contador++) {
-            
         }
     }
 

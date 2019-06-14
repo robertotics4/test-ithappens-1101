@@ -9,6 +9,7 @@ import br.com.connection.JPAUtil;
 import br.com.model.ItensPedido;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 /**
